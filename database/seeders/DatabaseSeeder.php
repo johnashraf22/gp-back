@@ -24,6 +24,20 @@ class DatabaseSeeder extends Seeder
             'role' => 'admin',
         ]);
 
+        \App\Models\User::factory()->create([
+            'name' => 'User',
+            'email' => 'user@gmail.com',
+            'password' => Hash::make('12345678'),
+            'role' => 'user',
+        ]);
+
+        \App\Models\User::factory()->create([
+            'name' => 'seller',
+            'email' => 'seller@gmail.com',
+            'password' => Hash::make('12345678'),
+            'role' => 'seller',
+        ]);
+
         Category::create([
             'name' => 'Books',
             'is_main' => true,

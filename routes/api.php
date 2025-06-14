@@ -32,6 +32,7 @@ Route::controller(AuthController::class)->group(function () {
 // Route::middleware('auth:api')->group(function () {
 Route::resource('products', ProductController::class);
 Route::resource('orders', OrderController::class);
+Route::get('admin-orders', [OrderController::class, 'adminIndex']);
 Route::post('cart', [CartController::class, 'addToCart']);
 Route::get('cart', [CartController::class, 'getCart']);
 Route::delete('cart/{id}', [CartController::class, 'removeFromCart']);

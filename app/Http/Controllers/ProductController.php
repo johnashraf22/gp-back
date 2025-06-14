@@ -13,7 +13,22 @@ class ProductController extends Controller
     {
         // dd(request()->header('Authorization'));
         // dd(auth()->user());
-        $products = Product::paginate(10);
+        $products = Product::query();
+        if(auth()->user()->role == 'seller'){
+            $products->where('user_id', auth()->user()->id);
+        }
+        if(request()->has('type')){
+            $type = request()->type;
+            switch($type){
+                case 'books':
+                    $products->where('category_id', 1);
+                    break;
+                case 'clothes':
+                    $products->where('category_id', 2);
+                    break;
+            }
+        }
+        $products = $products->paginate(10);
         return ProductResource::collection($products);
     }
 
@@ -38,6 +53,12 @@ class ProductController extends Controller
     public function update(Request $request, $id){
         $product = Product::find($id);
         $product->update($request->all());
+        return response()->json($product);
+    }
+
+    public function destroy($id){
+        $product = Product::find($id);
+        $product->delete();
         return response()->json($product);
     }
 }
