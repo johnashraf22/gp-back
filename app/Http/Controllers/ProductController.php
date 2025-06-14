@@ -38,7 +38,11 @@ class ProductController extends Controller
         // dd(auth()->user());
         $product = $request->all();
         $product['user_id'] = auth()->user()->id;
-        $product['category_id'] = Category::first()->id;
+        if(request()->has('category') && request()->category == 'books' ){
+            $product['category_id'] = 1;
+        }else{
+            $product['category_id'] = 2;
+        }
         $product = Product::create($product);
         $product->addMediaFromRequest('image')->toMediaCollection('image');
         return new ProductResource($product);

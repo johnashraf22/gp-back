@@ -25,11 +25,11 @@ class OrderController extends Controller
     {
         $order = Order::create([
             'user_id' => auth()->user()->id,
-            'total_price' => $request->total_price ?? 0,
+            'total_price' => $request->total_amount ?? 0,
             'status' => 'pending',
             'payment_method' => 'cash',
             'address' => ($request->address ?? auth()->user()->address) ?? "test address",
-            'phone' => ($request->phone ?? auth()->user()->phone) ?? "test phone",
+            'phone' => ($request->contact ?? auth()->user()->phone) ?? "test phone",
             'name' => ($request->name ?? auth()->user()->name) ?? "test name",
         ]);
         foreach($request->products as $product){
